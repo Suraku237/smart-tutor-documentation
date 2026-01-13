@@ -1,0 +1,124 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\geometry{margin=1in}
+
+\begin{document}
+
+\chapter{Software Design Specification (SDS)}
+
+\section{System Architecture}
+The Smart Tutor platform utilizes a \textbf{Three-Tier Architecture}. This design separates the user interface (Flutter), the functional business logic (Node.js), and the data storage (MySQL/VPS File System). This ensures that the "Sentiment Hub" communication does not bottleneck the "Admin PDF Control" operations.
+
+
+
+\section{Requirements Modeling: Use Case Diagram}
+The Use Case Diagram defines the functional scope of the system and the interactions between the actors and the system boundaries. It acts as a bridge between the functional requirements and the structural design.
+
+\subsection{Actors and System Boundaries}
+The system recognizes two primary actors:
+\begin{itemize}
+    \item \textbf{Student:} The consumer of resources who interacts with the sentiment hub to report academic confusion.
+    \item \textbf{Administrator:} The manager of the backend infrastructure who curates the PDF library and monitors student engagement.
+\end{itemize}
+
+
+
+\subsection{Use Case Descriptions}
+To provide granular detail on system behavior, the following table describes a core administrative function.
+
+\begin{longtable}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-01 \\ \hline
+\textbf{Name} & Delete Outdated Resource \\ \hline
+\textbf{Primary Actor} & Administrator \\ \hline
+\textbf{Pre-conditions} & Admin is authenticated; PDF exists on VPS storage. \\ \hline
+\textbf{Scenario} & 1. Admin navigates to PDF Dashboard. \newline 2. Admin selects a file for removal. \newline 3. System removes SQL metadata and executes \texttt{fs.unlink()} on the VPS. \\ \hline
+\textbf{Post-conditions} & Resource is permanently removed from database and disk. \\ \hline
+\end{longtable}
+
+\section{Structural Design: Class Diagram}
+The Class Diagram illustrates the static structure of the Smart Tutor application. It defines the entities within the system, their internal data structures (attributes), and the functional behaviors (methods) they provide.
+
+\subsection{Component Relationships}
+The design follows the \textbf{Model-View-Controller (MVC)} pattern on the backend and \textbf{Provider} pattern on the frontend to ensure that entities like \texttt{User}, \texttt{Resource}, and \texttt{SentimentMessage} remain decoupled from the UI logic.
+
+
+
+\section{Data Design: Entity Relationship Diagram (ERD)}
+The ERD provides a conceptual view of the database. It is designed to handle relational data between users and their academic sentiments while maintaining a separate file-pointer system for physical PDF resources stored on the Linux VPS.
+
+
+
+\subsection{Data Dictionary}
+The data dictionary provides the technical specifications for the database schema, ensuring consistency across the development lifecycle.
+
+\begin{longtable}{|p{3cm}|p{2cm}|p{8cm}|}
+\hline
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\ \hline
+\texttt{user\_id} & INT (PK) & Unique identifier for the student or admin. \\ \hline
+\texttt{role\_id} & ENUM & Determines access level: Student (0), Admin (1). \\ \hline
+\texttt{file\_uuid} & VARCHAR & The unique 36-character string used to identify a PDF on the VPS disk. \\ \hline
+\texttt{sentiment\_txt} & TEXT & The raw content of the student's inquiry. \\ \hline
+\end{longtable}
+
+\section{Behavioral Design: System Sequence Diagram (SSD)}
+The Sequence Diagram models the logic of messages between the mobile client and the server over time. It specifically tracks the JWT-authenticated request flow for posting a misunderstanding report.
+
+
+
+\chapter{Technical Implementation}
+\section{Requirements Modeling: Use Case Diagram}
+The Use Case Diagram defines the behavioral boundaries of the Smart Tutor system. It illustrates the functional requirements by showing the relationships between the actors—the \textbf{Student} and the \textbf{Administrator}—and the specific services or "use cases" provided by the application.
+
+\subsection{Actors and Scope}
+The system recognizes two distinct actor profiles:
+\begin{itemize}
+    \item \textbf{Student:} The primary user who interacts with the Sentiment Hub to post academic inquiries and consumes learning materials.
+    \item \textbf{Administrator:} A specialized user responsible for curating the learning library (PDF management) and monitoring the overall sentiment of the student body.
+\end{itemize}
+
+\subsection{Detailed Use Case Descriptions}
+To provide technical depth for the SDS, each major interaction is broken down below.
+
+\begin{longtable}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-01 \\ \hline
+\textbf{Name} & Post Academic Sentiment \\ \hline
+\textbf{Primary Actor} & Student \\ \hline
+\textbf{Description} & Allows a student to submit a real-time report regarding confusion or misunderstanding of a specific lesson. \\ \hline
+\textbf{Pre-conditions} & Student must be logged in; A valid Lesson ID must exist. \\ \hline
+\textbf{Main Flow} & 1. Student opens Sentiment Hub. \newline 2. Student types message. \newline 3. System validates input and posts to MySQL. \\ \hline
+\end{longtable}
+
+\begin{longtable}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Use Case ID} & UC-02 \\ \hline
+\textbf{Name} & Manage PDF Resources (CRUD) \\ \hline
+\textbf{Primary Actor} & Administrator \\ \hline
+\textbf{Description} & Enables the admin to upload new PDFs to the VPS or delete outdated materials. \\ \hline
+\textbf{Main Flow} & 1. Admin selects 'Delete' on a resource. \newline 2. System prompts for confirmation. \newline 3. System removes SQL entry and calls \texttt{fs.unlink()} on the VPS file path. \\ \hline
+\end{longtable}
+
+\section{System Structural Design: Class Diagram}
+Following the behavioral modeling of the Use Case Diagram, the Class Diagram represents the internal structural logic of the application.
+
+
+
+\subsection{Architectural Relationships}
+The design follows the \textbf{Model-View-Controller (MVC)} pattern. 
+\begin{itemize}
+    \item \textbf{Entity Classes:} (User, Sentiment, PDF) represent the database tables.
+    \item \textbf{Controller Classes:} Handle the logic of moving data from the Flutter client to the Node.js server.
+    \item \textbf{Service Classes:} Manage the low-level interactions with the VPS file system.
+    Your technical code sections follow here...
+
+\end{document}

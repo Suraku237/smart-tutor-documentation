@@ -7,16 +7,14 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning, shapes.geometric, arrows}
 
-% 自定义颜色
-\definecolor{primary}{RGB}{41, 128, 185}     % 深蓝色
-\definecolor{secondary}{RGB}{52, 152, 219}   % 浅蓝色
-\definecolor{accent}{RGB}{231, 76, 60}       % 红色
-\definecolor{success}{RGB}{46, 204, 113}     % 绿色
-\definecolor{warning}{RGB}{241, 196, 15}     % 黄色
-\definecolor{dark}{RGB}{44, 62, 80}          % 深灰色
-\definecolor{light}{RGB}{236, 240, 241}      % 浅灰色
+\definecolor{primary}{RGB}{41, 128, 185}     
+\definecolor{secondary}{RGB}{52, 152, 219}   
+\definecolor{accent}{RGB}{231, 76, 60}      
+\definecolor{success}{RGB}{46, 204, 113}     
+\definecolor{warning}{RGB}{241, 196, 15}    
+\definecolor{dark}{RGB}{44, 62, 80}          
+\definecolor{light}{RGB}{236, 240, 241}      
 
-% Beamer主题设置
 \usetheme{Madrid}
 \usecolortheme[named=primary]{structure}
 \setbeamercolor{title}{fg=white}
@@ -29,7 +27,6 @@
 \setbeamercolor{enumerate item}{fg=primary}
 \setbeamercolor{normal text}{fg=dark}
 
-% 自定义方块
 \setbeamertemplate{blocks}[rounded][shadow=true]
 
 \title{Smart Tutor: Comprehensive Software Documentation}
@@ -40,7 +37,6 @@
 
 \begin{document}
 
-% 标题页
 \begin{frame}
     \begin{tikzpicture}[remember picture,overlay]
         \fill[primary] (current page.north west) rectangle (current page.south east);
@@ -55,7 +51,6 @@
     \end{tikzpicture}
 \end{frame}
 
-% 项目概览
 \begin{frame}{Project Overview}
     \begin{columns}
         \column{0.5\textwidth}
@@ -90,7 +85,6 @@
     \end{columns}
 \end{frame}
 
-% 软件需求
 \begin{frame}{Software Requirements (SRS)}
     \begin{columns}
         \column{0.5\textwidth}
@@ -134,7 +128,6 @@
     \end{alertblock}
 \end{frame}
 
-% 系统架构
 \begin{frame}{System Architecture}
     \centering
     \begin{tikzpicture}[
@@ -142,21 +135,19 @@
         layer/.style={rectangle, rounded corners, draw=white, fill=#1, text=white, text width=3.5cm, text centered, minimum height=1.2cm, font=\bfseries},
         arrow/.style={->, >=stealth, thick, white}
     ]
-        % 分层架构
+
         \node (presentation) [layer=secondary] {Presentation Layer};
         \node (application) [layer=primary, below=of presentation] {Application Layer};
         \node (data) [layer=accent, below=of application] {Data Layer};
-        
-        % 箭头
+    
         \draw[arrow] (presentation) -- (application);
         \draw[arrow] (application) -- (data);
         
-        % 技术栈标注
         \node[below=0.2cm of presentation, text=dark] {\textbf{Flutter (Cross-platform UI)}};
         \node[below=0.2cm of application, text=dark] {\textbf{Node.js \& Express (Business Logic)}};
         \node[below=0.2cm of data, text=dark] {\textbf{MySQL + VPS File System}};
         
-        % 图案装饰
+
         \draw[fill=success!20, draw=success] (6,0) circle (0.5);
         \node at (6,0) {\textbf{3-Tier}};
     \end{tikzpicture}
@@ -168,7 +159,6 @@
     \end{block}
 \end{frame}
 
-% 行为设计
 \begin{frame}{Behavioral Design (Use Case)}
     \begin{columns}
         \column{0.45\textwidth}
@@ -212,23 +202,21 @@
     \end{tikzpicture}
 \end{frame}
 
-% 结构设计
 \begin{frame}{Structural Design (Class Diagram)}
     \centering
     \begin{tikzpicture}[
         class/.style={rectangle, draw=#1, fill=#1!20, text width=3cm, minimum height=1cm, text centered, rounded corners, font=\small}
     ]
-        % 核心类
+
         \node (user) [class=primary] {\textbf{User Class}\\\small Username, Email, Role, Auth()};
         \node (sentiment) [class=secondary, right=2cm of user] {\textbf{SentimentMessage}\\\small Message, Timestamp, Status, Post()};
         \node (resource) [class=accent, below=1.5cm of user] {\textbf{Resource}\\\small FileUUID, Path, Metadata, Upload()};
         
-        % 关系箭头
         \draw[->, thick, primary] (user) -- node[above] {\small 1..*} (sentiment);
         \draw[->, thick, secondary] (user) -- node[left] {\small 1..*} (resource);
         \draw[->, thick, accent] (resource) -- node[below] {\small references} (sentiment);
         
-        % 关键关系说明
+
         \node[text width=6cm, align=center, yshift=-1.5cm] at (current page.center) {
             \textbf{\textcolor{primary}{Key Relationships:}}\\
             \textcolor{dark}{User → SentimentMessage: One-to-Many}\\
@@ -238,7 +226,6 @@
     \end{tikzpicture}
 \end{frame}
 
-% 数据设计
 \begin{frame}{Data Design (Entity Relationship Diagram)}
     \begin{columns}
         \column{0.6\textwidth}
@@ -251,7 +238,7 @@
             \node (resource) [entity=accent, below=1.5cm of user] {\textbf{Resources}};
             \node (lesson) [entity=success, below=1.5cm of sentiment] {\textbf{Lessons}};
             
-            % 关系
+
             \draw[<->, thick, primary] (user) -- node[above] {1:M} (sentiment);
             \draw[<->, thick, secondary] (sentiment) -- node[right] {M:1} (lesson);
             \draw[<->, thick, accent] (resource) -- node[below] {M:1} (lesson);
@@ -276,22 +263,20 @@
     \end{alertblock}
 \end{frame}
 
-% 敏捷方法论
 \begin{frame}{Agile Methodology (Scrum)}
     \centering
     \begin{tikzpicture}[
         sprint/.style={rectangle, draw=white, fill=#1, text=white, rounded corners, minimum width=3cm, minimum height=1.5cm, text centered, font=\bfseries}
     ]
-        % Sprint时间线
+    
         \node (sprint1) [sprint=primary] {Sprint 1 \\ Days 1-14};
         \node (sprint2) [sprint=secondary, right=0.5cm of sprint1] {Sprint 2 \\ Days 15-28};
         \node (sprint3) [sprint=accent, right=0.5cm of sprint2] {Sprint 3 \\ Days 29-42};
-        
-        % 连接线
+
         \draw[->, thick, dark] (sprint1) -- (sprint2);
         \draw[->, thick, dark] (sprint2) -- (sprint3);
         
-        % Sprint内容
+
         \node[below=0.8cm of sprint1, text width=3cm, align=center] {
             \textbf{\textcolor{primary}{Auth \& Infrastructure}}\\
             \footnotesize JWT, Database setup, CI/CD
@@ -336,7 +321,6 @@
     \end{columns}
 \end{frame}
 
-% 技术实现与DevOps
 \begin{frame}{Technical Implementation \& DevOps}
     \begin{columns}
         \column{0.33\textwidth}
@@ -381,7 +365,7 @@
     \end{tikzpicture}
 \end{frame}
 
-% 结论与未来展望
+
 \begin{frame}{Conclusion \& Future Scope}
     \begin{columns}
         \column{0.5\textwidth}
@@ -429,12 +413,10 @@
     \end{exampleblock}
 \end{frame}
 
-% Q&A页面
 \begin{frame}
     \begin{tikzpicture}[remember picture,overlay]
         \fill[primary] (current page.north west) rectangle (current page.south east);
         
-        % 装饰元素
         \foreach \i in {1,...,20} {
             \draw[white, opacity=0.1] (rand*12, rand*9) circle (0.3);
         }

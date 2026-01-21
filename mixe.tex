@@ -87,8 +87,8 @@
     \vspace{2cm}
     
     % Placeholder for logo - replace with actual logo file
-    \IfFileExists{logo.png}{
-        \includegraphics[width=0.4\textwidth]{logo.png}
+    \IfFileExists{icon.png}{
+        \includegraphics[width=0.4\textwidth]{icon.png}
     }{
         \fbox{\parbox{0.4\textwidth}{\centering Logo Here\\[2cm]}}
     }
@@ -96,7 +96,7 @@
     \vfill
     \Large
     \textbf{Version 1.0}\\
-    \vspace{0.5cm}
+    \vspace{0.2cm}
     \large
     January 2026
 \end{titlepage}
@@ -107,9 +107,11 @@
 \vspace*{\fill}
 \begin{center}
     \copyright\ 2026 Smart Tutor Development Team\\
+    \vspace{1cm}  \small Kwtee ngnouba junior rayan  ictu20241377\\
+      \small  Izuchuku chijioke emmanuel ictu20241377\\ \small \\
     \vspace{1cm}
     This document contains proprietary information of the Smart Tutor project.\\
-    Distribution is restricted to authorized personnel only.
+    supervisor: Eng Tekoh Palma
 \end{center}
 \vspace*{\fill}
 
@@ -119,12 +121,6 @@
 
 % --- LIST OF FIGURES ---
 \listoffigures
-\newpage
-
-% --- LIST OF TABLES ---
-\listoftables
-\newpage
-
 % ============================================
 % CHAPTER 1: INTRODUCTION & SRS
 % ============================================
@@ -192,7 +188,7 @@ The Smart Tutor platform employs a \textbf{Three-Tier Architecture} model, ensur
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{architecture-diagram.png}
+    \includegraphics[width=0.8\textwidth]{3tier.png}
     \caption{Three-Tier Architecture of Smart Tutor Platform}
     \label{fig:architecture}
 \end{figure}
@@ -245,7 +241,7 @@ The system components interact as shown in Figure \ref{fig:components}:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{component-diagram.png}
+    \includegraphics[width=\textwidth]{compoet.png}
     \caption{System Component Interaction Diagram}
     \label{fig:components}
 \end{figure}
@@ -264,7 +260,7 @@ Figure \ref{fig:usecase} illustrates the functional requirements and interaction
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{use-case-diagram.png}
+    \includegraphics[width=0.9\textwidth]{usecasediagram.png}
     \caption{Smart Tutor Use Case Diagram}
     \label{fig:usecase}
 \end{figure}
@@ -339,7 +335,6 @@ System & Automated processes including notifications, backups, and analytics \\ 
 6. System confirms successful upload \\ \hline
 \textbf{Post-conditions} & Resource available to students \\ \hline
 \end{longtable}
-
 % ============================================
 % CHAPTER 4: STRUCTURAL DESIGN
 % ============================================
@@ -351,7 +346,7 @@ The Class Diagram represents the static structure of the Smart Tutor system, def
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Class-Diagram-of-Online-Learning-System.png}
+    \includegraphics[width=\textwidth]{class daigrm.png}
     \caption{Smart Tutor Class Diagram}
     \label{fig:class-diagram}
 \end{figure}
@@ -417,7 +412,7 @@ The ERD illustrates the logical structure of the database, showing entities, att
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{entity-relationship-diagram.png}
+    \includegraphics[width=\textwidth]{erdiagram.png}
     \caption{Smart Tutor Entity Relationship Diagram}
     \label{fig:erd}
 \end{figure}
@@ -524,7 +519,6 @@ CREATE TABLE lessons (
     \item \textbf{Composite Indexes:} Frequently queried combinations (user\_id + lesson\_id)
     \item \textbf{Full-text Search:} Implemented on message content for sentiment searching
 \end{itemize}
-
 % ============================================
 % CHAPTER 6: BEHAVIORAL DESIGN
 % ============================================
@@ -538,7 +532,7 @@ Figure \ref{fig:seq-sentiment} illustrates the message flow when a student posts
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{sequence-sentiment-post.png}
+    \includegraphics[width=0.9\textwidth]{sequencediagram.png}
     \caption{Sequence Diagram: Posting Academic Sentiment}
     \label{fig:seq-sentiment}
 \end{figure}
@@ -548,7 +542,7 @@ Figure \ref{fig:seq-delete} shows the secure deletion process for PDF resources.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{sequence-pdf-delete.png}
+    \includegraphics[width=0.9\textwidth]{pdf deletion sequence.png}
     \caption{Sequence Diagram: Admin PDF Deletion}
     \label{fig:seq-delete}
 \end{figure}
@@ -558,7 +552,7 @@ Figure \ref{fig:seq-delete} shows the secure deletion process for PDF resources.
 \subsection{User Authentication States}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{state-auth.png}
+    \includegraphics[width=0.6\textwidth]{statediagram.png}
     \caption{State Diagram: User Authentication Flow}
     \label{fig:state-auth}
 \end{figure}
@@ -566,7 +560,7 @@ Figure \ref{fig:seq-delete} shows the secure deletion process for PDF resources.
 \subsection{Message Lifecycle States}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{state-message.png}
+    \includegraphics[width=0.7\textwidth]{sentimentlifecycle.png}
     \caption{State Diagram: Sentiment Message Lifecycle}
     \label{fig:state-message}
 \end{figure}
@@ -1470,7 +1464,7 @@ Backup Solution & Automated daily backups to AWS S3 \\ \hline
 \section{Deployment Architecture}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{deployment-architecture.png}
+    \includegraphics[width=0.9\textwidth]{deploymetarchitechure.png}
     \caption{Production Deployment Architecture}
     \label{fig:deployment}
 \end{figure}
@@ -1683,7 +1677,7 @@ router.get('/metrics', (req, res) => {
 \section{Test Pyramid Implementation}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{test-pyramid.png}
+    \includegraphics[width=0.6\textwidth]{testpyramid.png}
     \caption{Testing Strategy Pyramid}
     \label{fig:test-pyramid}
 \end{figure}
